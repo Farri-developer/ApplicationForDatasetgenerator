@@ -269,6 +269,7 @@ class NASATLXDialog(QtWidgets.QDialog):
         self.setMinimumHeight(500)
         self.current_hr = 0
         self.current_hrv = 0
+        self.hr_update_time = time.time()
 
         self.setStyleSheet("QDialog { background: #1a1a1a; }")
 
@@ -408,6 +409,9 @@ class BiosignalRecorder(QtWidgets.QMainWindow):
         self.ppg_buffer = None
         self.hr_history = []
         self.stress_history = []
+
+        # FIX: initialize HR update timer
+        self.hr_update_time = time.time()
 
         # Setup UI
         self._setup_ui()

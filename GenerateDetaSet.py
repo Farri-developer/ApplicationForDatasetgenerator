@@ -166,6 +166,7 @@ class DatasetGenerator(QtWidgets.QWidget):
 
         self.init_ui()
 
+
     # ---------- UI ----------
     def init_ui(self):
 
@@ -183,6 +184,9 @@ class DatasetGenerator(QtWidgets.QWidget):
         self.lbl_ppg = QtWidgets.QLabel("PPG not selected")
         self.lbl_bp = QtWidgets.QLabel("BP not selected")
         self.lbl_tlx = QtWidgets.QLabel("TLX not selected")
+        self.btn_folder = QtWidgets.QPushButton("Select Dataset Folder")
+        self.btn_folder.clicked.connect(self.select_dataset_folder)
+        layout.addWidget(self.btn_folder)
 
         buttons = [
             ("Select EEG", self.select_eeg, self.lbl_eeg),
@@ -229,6 +233,44 @@ class DatasetGenerator(QtWidgets.QWidget):
     def select_ppg(self): self.select_file("ppg_file", self.lbl_ppg)
     def select_bp(self): self.select_file("bp_file", self.lbl_bp)
     def select_tlx(self): self.select_file("tlx_file", self.lbl_tlx)
+
+    def select_dataset_folder(self):
+
+        folder = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            "Select Dataset Folder",
+            DEFAULT_DIR
+        )
+
+        if not folder:
+            return
+
+        files = os.listdir(folder)
+
+        for f in files:
+
+            path = os.path.join(folder, f)
+            name = f.lower()
+
+            if name.endswith(".csv") or name.endswith(".xlsx"):
+
+                if "eeg" in name:
+                    self.eeg_file = path
+                    self.lbl_eeg.setText(f)
+
+                elif "ppg" in name:
+                    self.ppg_file = path
+                    self.lbl_ppg.setText(f)
+
+                elif "self" in name or "tlx" in name:
+                    self.tlx_file = path
+                    self.lbl_tlx.setText(f)
+
+                elif "bp" in name:
+                    self.bp_file = path
+                    self.lbl_bp.setText(f)
+
+        self.update_btn()
 
     # ---------- Dataset Generation ----------
     def generate_dataset(self):
