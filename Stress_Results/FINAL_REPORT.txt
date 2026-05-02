@@ -1,0 +1,35 @@
+STRESS CLASSIFICATION — RANDOM FOREST REPORT
+Generated : 2026-05-02 15:22:30.944292
+=======================================================
+
+Dataset    : D:\Path\merged_dataset.csv
+Total rows : 545
+Features   : 32
+Classes    : ['High', 'Low', 'Medium']
+Train / Test split : 80 / 20
+
+--- METRICS ---
+Accuracy  : 85.32%
+Precision : 85.51%
+Recall    : 85.32%
+F1-Score  : 85.37%
+
+--- CROSS-VALIDATION (5-Fold) ---
+Mean  : 82.56%
+Std   : 3.83%
+
+--- CONFUSION MATRIX ---
+[[33  0  4]
+ [ 0 32  4]
+ [ 2  6 28]]
+
+--- CLASSIFICATION REPORT ---
+              precision    recall  f1-score   support
+
+        High       0.94      0.89      0.92        37
+         Low       0.84      0.89      0.86        36
+      Medium       0.78      0.78      0.78        36
+
+    accuracy                           0.85       109
+   macro avg       0.85      0.85      0.85       109
+weighted avg       0.86      0.85      0.85       109
